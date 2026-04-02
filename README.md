@@ -1,4 +1,4 @@
-Requisitos para la Preentrega del Proyecto Final
+l
 Para la preentrega del proyecto final, que se presentará en la clase 6, se deben cumplir los siguientes requisitos:
 
 Abstract: Se debe tener un resumen del proyecto (entre 250 y 500 palabras) que describa el análisis exploratorio de datos sobre el conjunto de datos seleccionado, enfocándose en las características que influyen en la calidad del vino y las posibles relaciones entre estas características. También se debe mencionar la posible utilización de modelos de machine learning (ML) en la siguiente fase del proyecto.
