@@ -1,0 +1,15 @@
+Instructivo del Repositorio:
+
+Cada carpeta Step representa el progreso paso a paso de como ha sido tratado el dataset seleccionado para esta práctica profesional.
+
+	* En Step 1 se encuentra el crudo de los dataset seleccionados.
+
+	* En Step 2 se encuentran los 3 dataset formateados que serán utilizados en el análisis de datos.
+	
+	* En step 3 se realiza una limpieza general, se definden mejor los campos de cada dataset y se realiza la eliminación de aquellos
+	que se consideran irrelevantes para cubrir las hipótesis planteadas. 
+	
+	* En step 4 se realiza en profundad un tratamiento de campos nulos, outliers, se normalizan campos con texto para mantener un
+	mismo formato general y se redondean aquellos que indican algún porcentaje. Como extra adicional se agrega una explicación a 
+	nivel negocio de que representa exactamente cada campo definido en cada uno de los dataset, aportando al diccionario una
+	aclaración extra.

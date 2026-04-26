@@ -1,26 +1,40 @@
-l
-Para la preentrega del proyecto final, que se presentará en la clase 6, se deben cumplir los siguientes requisitos:
+Requisitos para la Preentrega del Proyecto Final.
 
-Abstract: Se debe tener un resumen del proyecto (entre 250 y 500 palabras) que describa el análisis exploratorio de datos sobre el conjunto de datos seleccionado, enfocándose en las características que influyen en la calidad del vino y las posibles relaciones entre estas características. También se debe mencionar la posible utilización de modelos de machine learning (ML) en la siguiente fase del proyecto.
+Para la preentrega del proyecto final, que se presentar¨¢ en la clase 6, se deben cumplir los siguientes requisitos:
 
-Preguntas e Hipótesis: El proyecto debe partir con al menos tres preguntas de interés. Ejemplos de estas preguntas incluyen. Y hacer al menos 2 gráficos interactivos y verificación de nulos.
-
-Cierre del Proyecto Final (Desde el punto 3)
-Análisis Exploratorio de Datos (EDA): Se debe realizar un EDA utilizando gráficos interactivos y resúmenes numéricos. Que den soporte a sus preguntas e hipótesis.
-
-Selección del Modelo: Sobre el interés a futuro de aplicar un modelo de aprendizaje automático, sobre los datos analizados.
-
-Comentarios y Requisitos para el Proyecto Final
+	1. Abstract: Se debe tener un resumen del proyecto (entre 250 y 500 palabras) que describa el an¨¢lisis exploratorio
+	de datos sobre el conjunto de datos seleccionado, enfoc¨¢ndose en las caracter¨ªsticas que influyen en la calidad del
+	vino y las posibles relaciones entre estas caracter¨ªsticas. Tambi¨¦n se debe mencionar la posible utilizaci¨®n de modelos
+	de machine learning (ML) en la siguiente fase del proyecto.
+	
+	2. Preguntas e Hip¨®tesis: El proyecto debe partir con al menos tres preguntas de inter¨¦s. Ejemplos de estas preguntas
+	incluyen. Y hacer al menos 2 gr¨¢ficos interactivos y verificaci¨®n de nulos.
+	
+	Hasta ac¨¢ la Preentrega del Proyecto Final, luego seguir desde el punto 3 para cerrar su PF.
+	
+	3. An¨¢lisis Exploratorio de Datos (EDA): Se debe realizar un EDA utilizando gr¨¢ficos interactivos y res¨²menes num¨¦ricos
+	que den soporte a sus preguntas e hip¨®tesis.
+	
+	4. Selecci¨®n del Modelo: sobre el inter¨¦s a futuro de aplicar un modelo de aprendizaje autom¨¢tico, sobre los datos
+	analizados Comentarios y Requisitos para el Proyecto Final.
+	
 Para el proyecto final, los requisitos y consideraciones son los siguientes:
 
-Gráficos: Todos los gráficos deben ser interactivos y deben responder claramente a las hipótesis de interés planteadas.
-
-Dataset: El dataset utilizado debe ser interesante, empresarial, real o de alguna fuente de internet, con al menos 1000 registros y 5 columnas. Se sugiere un dataset más grande si es posible, pero se valora más la calidad del análisis que la cantidad de datos.
-
-Análisis: Se debe explicar detalladamente cada uno de los análisis realizados y cómo estos contribuyen a responder las preguntas e hipótesis planteadas.
-
-Conclusiones: Las conclusiones deben ser sólidas y estar alineadas con las hipótesis. También deben considerar la posibilidad de desarrollar un modelo de ML en la siguiente fase del proyecto.
-
-Originalidad: Se debe evitar utilizar datasets comunes como los relacionados con COVID-19. Se recomienda elegir un caso original y relevante.
-
-Presentación Final: La presentación final del proyecto incluirá el proyecto completo, una exposición en clase, y la entrega del notebook en Colab. Esta presentación final se llevará a cabo entre las clases 12 y 13, siendo la última clase, donde también se presentarán los recuperatorios.
+	1. Gr¨¢ficos: Todos los gr¨¢ficos deben ser interactivos y deben responder claramente a las hip¨®tesis de inter¨¦s planteadas.
+	
+	2. Dataset: El dataset utilizado debe ser interesante, empresarial, real o de alguna fuente de internet, con al menos 1000
+	registros y 5 columnas. Se sugiere un dataset m¨¢s grande si es posible, pero se valora m¨¢s la calidad del an¨¢lisis que la
+	cantidad de datos.
+	
+	3. An¨¢lisis: Se debe explicar detalladamente cada uno de los an¨¢lisis realizados y c¨®mo estos contribuyen a responder las
+	preguntas e hip¨®tesis planteadas.
+	
+	4. Conclusiones: Las conclusiones deben ser s¨®lidas y estar alineadas con las hip¨®tesis. Tambi¨¦n deben considerar la
+	posibilidad de desarrollar un modelo de ML en la siguiente fase del proyecto.
+	
+	5. Originalidad: Se debe evitar utilizar datasets comunes como los relacionados con COVID-19. Se recomienda elegir un caso
+	original y relevante.
+	
+	6. Presentaci¨®n Final: La presentaci¨®n final del proyecto incluir¨¢ el proyecto completo, una exposici¨®n en clase, y la entrega
+	del notebook en Colab. Esta presentaci¨®n final se llevar¨¢ a cabo entre las clases 12 y 13, siendo la ¨²ltima clase , donde
+	tambi¨¦n se presentar¨¢n los recuperatorios.
