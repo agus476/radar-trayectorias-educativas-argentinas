@@ -13,3 +13,4 @@ Cada carpeta Step representa el progreso paso a paso de como ha sido tratado el 
 	mismo formato general y se redondean aquellos que indican algún porcentaje. Como extra adicional se agrega una explicación a 
 	nivel negocio de que representa exactamente cada campo definido en cada uno de los dataset, aportando al diccionario una
 	aclaración extra.
+	* En step 5 se realiza la conexión a la base de datos, creando las tablas características, trayectoria por sexo y matrícula secciones. A su vez, creamos un ID único e ingestamos los datasets a sus respectivas tablas.
