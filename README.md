@@ -5,9 +5,9 @@
 [![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Dashboard-3F4F75?logo=plotly&logoColor=white)](https://plotly.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL%20%2F%20Supabase-Data%20Warehouse-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-**Radar de Trayectorias Educativas Argentinas** es un dashboard analítico sobre trayectorias educativas, matrícula, secciones y abandono escolar en Argentina. El proyecto integra datos históricos de matrícula, trayectoria por sexo e infraestructura institucional para construir una lectura ejecutiva orientada a identificar señales tempranas de riesgo educativo.
+**Radar de Trayectorias Educativas Argentinas** es un proyecto analítico sobre trayectorias educativas, matrícula, secciones y abandono escolar en Argentina. Integra datos históricos de matrícula, trayectoria por sexo e infraestructura institucional para construir una lectura ejecutiva orientada a identificar señales tempranas de riesgo educativo.
 
-> Este repositorio corresponde al proyecto final de PP1, presentado bajo una identidad más profesional para portfolio sin cambiar el nombre real del repositorio ni sus rutas funcionales.
+El dashboard principal del proyecto se presenta como **Dinámicas de Retención y Desgranamiento Escolar**. Esta jerarquía separa la identidad del proyecto de la visualización final sin cambiar el nombre real del repositorio ni sus rutas funcionales.
 
 ## Tabla de contenidos
 
@@ -19,14 +19,13 @@
 - [Pipeline de trabajo](#pipeline-de-trabajo)
 - [Preguntas analíticas](#preguntas-analíticas)
 - [Dashboard y visualizaciones](#dashboard-y-visualizaciones)
-- [Demo online estática](#demo-online-estática)
+- [Demo online](#demo-online)
 - [Stack técnico](#stack-técnico)
 - [Estructura del repositorio](#estructura-del-repositorio)
 - [Configuración local](#configuración-local)
 - [Ejecución con base de datos](#ejecución-con-base-de-datos)
 - [Variables de entorno](#variables-de-entorno)
-- [Cómo generar el HTML de demo](#cómo-generar-el-html-de-demo)
-- [Cómo publicar la demo](#cómo-publicar-la-demo)
+- [Mantenimiento de la demo HTML](#mantenimiento-de-la-demo-html)
 - [Notas de reproducibilidad](#notas-de-reproducibilidad)
 
 ## Descripción del proyecto
@@ -120,7 +119,7 @@ flowchart LR
 
 ## Dashboard y visualizaciones
 
-El dashboard final organiza el análisis en cinco dimensiones:
+El dashboard final, **Dinámicas de Retención y Desgranamiento Escolar**, organiza el análisis en cinco dimensiones:
 
 - **Tendencia histórica:** evolución de salidas sin pase y tasa de abandono.
 - **Brecha sociodemográfica:** flujo de retención y promoción por sexo.
@@ -130,19 +129,24 @@ El dashboard final organiza el análisis en cinco dimensiones:
 
 El notebook principal usa componentes HTML, Tailwind CSS y Plotly para presentar el análisis con una estética de dashboard ejecutivo.
 
-## Demo online estática
+## Demo online
 
-La demo online recomendada es una versión HTML estática y pre-renderizada del notebook principal. Está pensada para revisión rápida por evaluadores, recruiters o docentes.
+La demo pública del dashboard está disponible en Vercel:
 
-Esta demo:
+**[Abrir demo online](https://radar-trayectorias-educativas-argen.vercel.app/)**
 
-- no requiere credenciales de PostgreSQL/Supabase;
-- no ejecuta Python;
-- no consulta la base de datos en tiempo real;
-- muestra los outputs, gráficos y resultados guardados al momento de exportar;
-- no reemplaza al notebook original ni al flujo con base de datos.
+La demo corresponde a `public/index.html`, una versión HTML estática y pre-renderizada del notebook principal. Está pensada para revisión rápida por docentes, evaluadores técnicos, recruiters y visitantes del portfolio.
 
-La carpeta `public/` queda preparada para alojar el HTML publicable. Si `public/index.html` todavía no existe, debe generarse desde un notebook ya ejecutado con sus outputs guardados.
+Características de la demo:
+
+- está publicada en Vercel y no requiere credenciales;
+- no ejecuta Python en el navegador;
+- no consulta PostgreSQL/Supabase en tiempo real;
+- muestra outputs, gráficos y resultados guardados al momento de exportar el notebook;
+- sirve para validar rápidamente la narrativa visual y la experiencia del dashboard;
+- no reemplaza al notebook original, que sigue siendo la fuente ejecutable del análisis.
+
+La carpeta `public/` contiene la salida estática publicable y documentación breve de mantenimiento técnico.
 
 ## Hallazgos principales
 
@@ -240,46 +244,21 @@ El notebook principal carga explícitamente ese archivo con `python-dotenv` y lu
 
 > Por seguridad, las credenciales reales no deben versionarse. El repositorio solo incluye `.env.example` como referencia y `.gitignore` excluye archivos `.env`.
 
-## Cómo generar el HTML de demo
+## Mantenimiento de la demo HTML
 
-La demo HTML debe generarse después de ejecutar `abandono_escolar_argentina_dashboard.ipynb` con credenciales válidas y guardar sus outputs.
-
-Desde la raíz del repositorio:
-
-```bash
-jupyter nbconvert --to html abandono_escolar_argentina_dashboard.ipynb --output-dir public --output index.html
-```
-
-Para generar una versión más limpia, sin mostrar celdas de código:
+El HTML estático se genera a partir del notebook principal ya ejecutado y con outputs guardados. Para mantenimiento técnico, desde la raíz del repositorio puede usarse:
 
 ```bash
 jupyter nbconvert --to html abandono_escolar_argentina_dashboard.ipynb --output-dir public --output index.html --no-input
 ```
 
-Antes de publicar el HTML, revisar que no contenga secretos:
+Antes de publicar una nueva versión, se recomienda revisar que el HTML no contenga secretos:
 
 ```bash
-rg -n "password|DB_PASSWORD|postgresql://|supabase|apikey|secret|token" public
+rg -n "password|DB_PASSWORD|postgresql://|supabase|apikey|api_key|secret|token" public/index.html
 ```
 
-Las menciones a nombres de variables pueden ser válidas, pero no debe aparecer ninguna credencial real, token o cadena de conexión completa.
-
-## Cómo publicar la demo
-
-### GitHub Pages
-
-1. Generar `public/index.html`.
-2. Subir el HTML al repositorio.
-3. Configurar GitHub Pages para servir el contenido estático correspondiente.
-
-### Vercel
-
-1. Generar `public/index.html`.
-2. Importar el repositorio en Vercel.
-3. Usar configuración estática, sin framework.
-4. Publicar la carpeta `public/`.
-
-No hace falta convertir el proyecto a Streamlit, Dash, Flask, Next.js ni React: la demo es HTML estático.
+La publicación actual se sirve como sitio estático en Vercel desde `public/index.html`. No hace falta convertir el proyecto a Streamlit, Dash, Flask, Next.js ni React para revisar la demo online.
 
 ## Próxima evolución: Machine Learning
 

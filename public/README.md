@@ -1,6 +1,8 @@
 # Demo HTML estática
 
-Esta carpeta está preparada para publicar una versión estática del dashboard principal como HTML pre-renderizado.
+Esta carpeta contiene la versión estática publicable del dashboard **Dinámicas de Retención y Desgranamiento Escolar**, perteneciente al proyecto **Radar de Trayectorias Educativas Argentinas**.
+
+Demo online: https://radar-trayectorias-educativas-argen.vercel.app/
 
 ## Qué es la demo
 
@@ -30,18 +32,7 @@ jupyter nbconvert --to html abandono_escolar_argentina_dashboard.ipynb --output-
 
 ## Publicación estática
 
-### GitHub Pages
-
-1. Generar `public/index.html`.
-2. Subir los cambios al repositorio.
-3. Configurar GitHub Pages para publicar desde la carpeta `public/` o copiar el HTML a la rama/ruta configurada para Pages.
-
-### Vercel
-
-1. Generar `public/index.html`.
-2. Importar el repositorio en Vercel.
-3. Usar configuración estática sin framework.
-4. Publicar la carpeta `public/` como salida estática.
+La publicación actual se sirve en Vercel como sitio estático desde `public/index.html`. No requiere backend, framework web ni credenciales para ser consultada por visitantes externos.
 
 ## Seguridad
 
