@@ -1,0 +1,10 @@
+pandas
+numpy
+geopandas
+plotly
+sqlalchemy
+psycopg2-binary
+openpyxl
+scipy
+ipython
+jupyter
