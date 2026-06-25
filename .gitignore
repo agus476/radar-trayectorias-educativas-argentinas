@@ -1,0 +1,23 @@
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated dashboard/geospatial artifacts
+argentina_continental.json
+argentina_simple.json
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,144 +1,321 @@
-# Analítica de Riesgo de Abandono Escolar en Argentina
+# Radar de Trayectorias Educativas Argentinas
 
-Proyecto de analítica aplicada que explora señales tempranas de riesgo de abandono escolar en Argentina a partir de datos históricos de matrícula, trayectoria educativa e infraestructura institucional.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Dashboard-3F4F75?logo=plotly&logoColor=white)](https://plotly.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL%20%2F%20Supabase-Data%20Warehouse-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-El objetivo es transformar datos educativos públicos en una herramienta de lectura ejecutiva: un dashboard interactivo capaz de mostrar tendencias, segmentar perfiles críticos y sentar las bases para un futuro modelo de alerta temprana.
+**Radar de Trayectorias Educativas Argentinas** es un dashboard analítico sobre trayectorias educativas, matrícula, secciones y abandono escolar en Argentina. El proyecto integra datos históricos de matrícula, trayectoria por sexo e infraestructura institucional para construir una lectura ejecutiva orientada a identificar señales tempranas de riesgo educativo.
 
-## Demo principal
+> Este repositorio corresponde al proyecto final de PP1, presentado bajo una identidad más profesional para portfolio sin cambiar el nombre real del repositorio ni sus rutas funcionales.
 
-El archivo principal del proyecto es:
+## Tabla de contenidos
 
-- [`abandono_escolar_argentina_dashboard.ipynb`](abandono_escolar_argentina_dashboard.ipynb): notebook-dashboard con visualizaciones interactivas, narrativa ejecutiva y perfilamiento de riesgo.
-- [`docs/pipeline.md`](docs/pipeline.md): explicación del flujo de datos desde archivos crudos hasta el dashboard final.
+- [Descripción del proyecto](#descripción-del-proyecto)
+- [Problema de negocio / política pública](#problema-de-negocio--política-pública)
+- [Solución analítica](#solución-analítica)
+- [Entregables principales](#entregables-principales)
+- [Datos utilizados](#datos-utilizados)
+- [Pipeline de trabajo](#pipeline-de-trabajo)
+- [Preguntas analíticas](#preguntas-analíticas)
+- [Dashboard y visualizaciones](#dashboard-y-visualizaciones)
+- [Demo online estática](#demo-online-estática)
+- [Stack técnico](#stack-técnico)
+- [Estructura del repositorio](#estructura-del-repositorio)
+- [Configuración local](#configuración-local)
+- [Ejecución con base de datos](#ejecución-con-base-de-datos)
+- [Variables de entorno](#variables-de-entorno)
+- [Cómo generar el HTML de demo](#cómo-generar-el-html-de-demo)
+- [Cómo publicar la demo](#cómo-publicar-la-demo)
+- [Notas de reproducibilidad](#notas-de-reproducibilidad)
 
-## Problema
+## Descripción del proyecto
 
-El abandono escolar no ocurre de manera aislada ni completamente aleatoria. Puede estar asociado a señales observables como sobreedad, salidas sin pase, brechas de promoción, falta de conectividad, tipo de gestión y contexto urbano/rural.
+El objetivo del proyecto es transformar datos educativos públicos en una herramienta de lectura ejecutiva que permita analizar tendencias, comparar segmentos institucionales y priorizar perfiles con mayor exposición al abandono escolar.
 
-Este proyecto analiza esas dimensiones para responder una pregunta central:
+La solución organiza el proceso completo desde archivos crudos hasta un dashboard final, documentando las etapas de formateo, limpieza, aseguramiento de calidad, ingesta SQL y visualización.
+
+## Problema de negocio / política pública
+
+El abandono escolar no suele aparecer de forma aislada ni completamente aleatoria. Antes de consolidarse, puede estar precedido por señales observables como:
+
+- sobreedad escolar;
+- salidas sin pase;
+- brechas de promoción;
+- diferencias por sector de gestión;
+- contexto urbano/rural;
+- disponibilidad de conectividad y equipamiento institucional.
+
+La pregunta central del proyecto es:
 
 > ¿Podemos identificar perfiles institucionales con mayor riesgo educativo antes de que el abandono se consolide?
 
-## Solución propuesta
+## Solución analítica
 
-Se construyó un flujo de trabajo de datos que integra, limpia y analiza información educativa histórica para generar un dashboard interactivo orientado a toma de decisiones.
+Se desarrolló un flujo de trabajo de datos que consolida información educativa histórica y la transforma en un dashboard interactivo para análisis exploratorio y toma de decisiones.
 
-La solución combina:
+La solución incluye:
 
-- ETL y normalización de datasets anuales.
-- Tratamiento de nulos y outliers.
-- Modelado e ingesta en base SQL.
-- Visualizaciones interactivas con Plotly.
-- Segmentación de perfiles de riesgo.
-- Planteo de una futura línea de Machine Learning para alerta temprana.
+- consolidación de datasets anuales;
+- normalización de estructura y nombres de variables;
+- limpieza de datos, tratamiento de nulos y revisión de outliers;
+- construcción de tablas analíticas para base relacional;
+- ingesta en PostgreSQL / Supabase;
+- visualizaciones interactivas con Plotly;
+- segmentación de perfiles de riesgo educativo;
+- propuesta de evolución hacia un modelo predictivo.
 
-## Dataset
+## Entregables principales
 
-El proyecto trabaja con bases educativas históricas de Argentina organizadas por año y temática. Las fuentes crudas se encuentran en `01_raw_data/` y los datasets consolidados iniciales están en `02_data_formatting/`.
+| Entregable | Descripción |
+| --- | --- |
+| [`abandono_escolar_argentina_dashboard.ipynb`](abandono_escolar_argentina_dashboard.ipynb) | Notebook principal con dashboard interactivo, narrativa ejecutiva y visualizaciones de riesgo. |
+| [`public/README.md`](public/README.md) | Instrucciones para generar y publicar una demo HTML estática del dashboard. |
+| [`docs/pipeline.md`](docs/pipeline.md) | Documentación del flujo de datos desde archivos crudos hasta el dashboard final. |
+| [`docs/case_study.md`](docs/case_study.md) | Caso de estudio con contexto, metodología, hallazgos y valor del proyecto. |
+| [`docs/talk_outline.md`](docs/talk_outline.md) | Guion de presentación para explicar el proyecto en formato portfolio o demo. |
+| [`docs/data_dictionary.xlsx`](docs/data_dictionary.xlsx) | Diccionario de datos de apoyo para interpretar variables y tablas. |
+
+## Datos utilizados
+
+El repositorio trabaja con bases educativas históricas de Argentina organizadas por año y temática. Los archivos crudos se encuentran en `01_raw_data/` y los datasets consolidados iniciales en `02_data_formatting/`.
 
 Tablas analíticas principales:
 
 | Dataset | Contenido | Uso analítico |
 | --- | --- | --- |
-| `Matricula_Secciones_Final.csv` | Matrícula, secciones, sobreedad y segmentación por provincia, departamento, sector y ámbito. | Medición de volumen, sobreedad y estructura escolar. |
-| `Trayectoria_Sexo_Final.csv` | Inscritos, promovidos, no promovidos, salidas y egresos por sexo. | Análisis de retención, abandono y brecha de promoción. |
-| `Establecimiento_Caracteristicas_Final.csv` | Infraestructura, conectividad, equipamiento, biblioteca y laboratorio. | Contexto institucional y recursos tecnológicos. |
+| `Matricula_Secciones_Final.csv` | Matrícula, secciones, sobreedad y segmentación por provincia, departamento, sector y ámbito. | Medición de volumen, estructura escolar y señales de sobreedad. |
+| `Trayectoria_Sexo_Final.csv` | Inscritos, promovidos, no promovidos, salidas y egresos por sexo. | Análisis de retención, abandono, egreso y brechas de promoción. |
+| `Establecimiento_Caracteristicas_Final.csv` | Infraestructura, conectividad, equipamiento, biblioteca y laboratorio. | Evaluación del contexto institucional y recursos disponibles. |
+
+## Pipeline de trabajo
+
+El proyecto está organizado en etapas numeradas para facilitar trazabilidad y reproducibilidad:
+
+```mermaid
+flowchart LR
+    A[01 Raw Data] --> B[02 Data Formatting]
+    B --> C[03 Data Cleaning]
+    C --> D[04 Quality Assurance]
+    D --> E[05 Database Ingestion]
+    E --> F[06 Visualization Prototype]
+    F --> G[Dashboard Final]
+```
+
+1. **Datos crudos:** organización de archivos originales por año y temática.
+2. **Formateo:** concatenación de bases anuales y generación de datasets consolidados.
+3. **Limpieza:** selección de campos relevantes, estandarización y preparación analítica.
+4. **Aseguramiento de calidad:** tratamiento de nulos, outliers y normalización de texto.
+5. **Ingesta SQL:** creación de tablas analíticas y carga en base relacional.
+6. **Visualización:** prototipo y dashboard final con narrativa ejecutiva.
 
 ## Preguntas analíticas
 
 1. ¿La retención escolar muestra una mejora sostenida o existen señales de estancamiento?
-2. ¿Cómo se comporta el flujo de retención entre niveles y años?
+2. ¿Cómo se comporta el flujo de retención entre niveles, años y territorios?
 3. ¿Existen diferencias relevantes de promoción por sexo?
 4. ¿Qué relación hay entre sobreedad y abandono?
 5. ¿La infraestructura tecnológica ayuda a segmentar perfiles de riesgo?
 6. ¿Qué perfiles institucionales deberían priorizarse en una futura política de alerta temprana?
 
-## Visualizaciones principales
+## Dashboard y visualizaciones
 
-El dashboard final organiza el análisis en dimensiones:
+El dashboard final organiza el análisis en cinco dimensiones:
 
 - **Tendencia histórica:** evolución de salidas sin pase y tasa de abandono.
 - **Brecha sociodemográfica:** flujo de retención y promoción por sexo.
-- **Condición de sobreedad:** relación entre sobreedad y abandono por provincia.
-- **Infraestructura escolar:** comparación de abandono según conectividad y equipamiento.
-- **Perfil de riesgo:** radar de riesgo que consolida abandono, sobreedad y brecha de género.
+- **Sobreedad:** relación entre sobreedad y abandono por provincia.
+- **Infraestructura escolar:** comparación según conectividad, equipamiento y recursos institucionales.
+- **Perfil de riesgo:** radar analítico que combina abandono, sobreedad y brecha de género.
+
+El notebook principal usa componentes HTML, Tailwind CSS y Plotly para presentar el análisis con una estética de dashboard ejecutivo.
+
+## Demo online estática
+
+La demo online recomendada es una versión HTML estática y pre-renderizada del notebook principal. Está pensada para revisión rápida por evaluadores, recruiters o docentes.
+
+Esta demo:
+
+- no requiere credenciales de PostgreSQL/Supabase;
+- no ejecuta Python;
+- no consulta la base de datos en tiempo real;
+- muestra los outputs, gráficos y resultados guardados al momento de exportar;
+- no reemplaza al notebook original ni al flujo con base de datos.
+
+La carpeta `public/` queda preparada para alojar el HTML publicable. Si `public/index.html` todavía no existe, debe generarse desde un notebook ya ejecutado con sus outputs guardados.
 
 ## Hallazgos principales
 
-- La sobreedad funciona como una señal académica relevante para perfilar riesgo de abandono.
-- Las diferencias por sector, ámbito y conectividad permiten segmentar perfiles institucionales.
-- El perfil **estatal / rural / sin conectividad** aparece como un segmento crítico para priorizar análisis e intervención.
-- La combinación de trayectoria académica e infraestructura ofrece una base sólida para evolucionar hacia un modelo predictivo.
+- La sobreedad aparece como una señal académica relevante para perfilar riesgo de abandono.
+- Las diferencias por sector, ámbito y conectividad permiten segmentar perfiles institucionales con mayor precisión.
+- El perfil **estatal / rural / sin conectividad** emerge como un segmento crítico para priorizar análisis e intervención.
+- La combinación de trayectoria académica e infraestructura institucional ofrece una base sólida para evolucionar hacia un modelo de alerta temprana.
 
 ## Stack técnico
 
-- Python
-- Pandas
-- GeoPandas
-- SQLAlchemy
-- PostgreSQL / Supabase
-- Plotly
-- HTML
-- Tailwind CSS
-- Jupyter / Google Colab
+| Categoría | Herramientas |
+| --- | --- |
+| Lenguaje | Python |
+| Análisis de datos | Pandas, NumPy, SciPy |
+| Datos geográficos | GeoPandas |
+| Visualización | Plotly, HTML, Tailwind CSS |
+| Base de datos | PostgreSQL, Supabase, SQLAlchemy, psycopg2 |
+| Entorno de trabajo | Jupyter Notebook / Google Colab |
+| Archivos tabulares | CSV, Excel, OpenPyXL |
 
 ## Estructura del repositorio
 
 ```text
 .
-├── 01_raw_data/                    # Datasets crudos por año
-├── 02_data_formatting/             # Concatenación y datasets consolidados
-├── 03_data_cleaning/                # Limpieza general
-├── 04_quality_assurance/            # QA, nulos, outliers y normalización
-├── 05_database_ingestion/           # Creación de tablas e ingesta SQL
-├── 06_visualization_prototype/       # Prototipo previo de visualización
-├── docs/                            # Material narrativo para portfolio y charla
-├── abandono_escolar_argentina_dashboard.ipynb # Dashboard final interactivo
-├── requirements.txt                # Dependencias del proyecto
-└── .env.example                    # Variables de entorno requeridas
+├── 01_raw_data/                         # Datasets crudos por año y temática
+├── 02_data_formatting/                  # Formateo, concatenación y datasets consolidados
+├── 03_data_cleaning/                    # Limpieza inicial y datasets limpios
+├── 04_quality_assurance/                # QA, nulos, outliers y normalización
+├── 05_database_ingestion/               # Creación de tablas e ingesta SQL
+├── 06_visualization_prototype/          # Prototipo previo de visualización
+├── docs/                                # Documentación narrativa y material de portfolio
+├── public/                              # Instrucciones / salida para demo HTML estática
+├── abandono_escolar_argentina_dashboard.ipynb
+├── requirements.txt                     # Dependencias del proyecto
+└── .env.example                         # Variables de entorno requeridas
 ```
 
 ## Configuración local
 
-1. Crear un entorno virtual.
-2. Instalar dependencias:
+1. Clonar el repositorio y entrar al directorio del proyecto.
+
+```bash
+git clone <url-del-repositorio>
+cd proyecto-final-pp1--
+```
+
+2. Crear y activar un entorno virtual.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+> En Windows, activar con `.venv\\Scripts\\activate`.
+
+3. Instalar dependencias.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Configurar credenciales de base de datos usando variables de entorno. Ver `.env.example`.
+4. Configurar variables de entorno a partir del archivo de ejemplo.
 
-## Próximo paso: Machine Learning
+```bash
+cp .env.example .env
+```
 
-La siguiente evolución natural del proyecto es entrenar un modelo de clasificación para identificar instituciones con alto riesgo de abandono escolar.
+5. Completar `.env` con credenciales propias de PostgreSQL/Supabase.
+
+6. Abrir el notebook principal.
+
+```bash
+jupyter notebook abandono_escolar_argentina_dashboard.ipynb
+```
+
+## Ejecución con base de datos
+
+El notebook original funciona conectado a PostgreSQL/Supabase mediante SQLAlchemy. Cuando existen credenciales válidas en el entorno o en `.env`, el dashboard crea la conexión y ejecuta sus consultas SQL contra las tablas analíticas.
+
+Este proyecto conserva intacta esa lógica: no se implementa un modo local alternativo con pandas ni se reemplazan las consultas SQL del dashboard.
+
+## Variables de entorno
+
+Crear un archivo `.env` local con la siguiente estructura:
+
+```env
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=6543
+DB_NAME=postgres
+```
+
+El notebook principal carga explícitamente ese archivo con `python-dotenv` y luego mantiene el uso de `os.getenv(...)`.
+
+> Por seguridad, las credenciales reales no deben versionarse. El repositorio solo incluye `.env.example` como referencia y `.gitignore` excluye archivos `.env`.
+
+## Cómo generar el HTML de demo
+
+La demo HTML debe generarse después de ejecutar `abandono_escolar_argentina_dashboard.ipynb` con credenciales válidas y guardar sus outputs.
+
+Desde la raíz del repositorio:
+
+```bash
+jupyter nbconvert --to html abandono_escolar_argentina_dashboard.ipynb --output-dir public --output index.html
+```
+
+Para generar una versión más limpia, sin mostrar celdas de código:
+
+```bash
+jupyter nbconvert --to html abandono_escolar_argentina_dashboard.ipynb --output-dir public --output index.html --no-input
+```
+
+Antes de publicar el HTML, revisar que no contenga secretos:
+
+```bash
+rg -n "password|DB_PASSWORD|postgresql://|supabase|apikey|secret|token" public
+```
+
+Las menciones a nombres de variables pueden ser válidas, pero no debe aparecer ninguna credencial real, token o cadena de conexión completa.
+
+## Cómo publicar la demo
+
+### GitHub Pages
+
+1. Generar `public/index.html`.
+2. Subir el HTML al repositorio.
+3. Configurar GitHub Pages para servir el contenido estático correspondiente.
+
+### Vercel
+
+1. Generar `public/index.html`.
+2. Importar el repositorio en Vercel.
+3. Usar configuración estática, sin framework.
+4. Publicar la carpeta `public/`.
+
+No hace falta convertir el proyecto a Streamlit, Dash, Flask, Next.js ni React: la demo es HTML estático.
+
+## Próxima evolución: Machine Learning
+
+La evolución natural del proyecto es entrenar un modelo de clasificación para identificar instituciones o segmentos con alto riesgo de abandono escolar.
 
 Variable objetivo sugerida:
 
 ```text
-alto_riesgo = 1 si una institución o segmento presenta caída fuerte de retención / egreso o tasa elevada de salidas sin pase.
+alto_riesgo = 1 si una institución o segmento presenta caída fuerte de retención, caída de egreso o tasa elevada de salidas sin pase.
 alto_riesgo = 0 en caso contrario.
 ```
 
 Variables candidatas:
 
-- Tasa de abandono.
-- Tasa de sobreedad.
-- Brecha de promoción por sexo.
-- Sector de gestión.
-- Ámbito urbano/rural.
-- Provincia/departamento.
-- Conectividad.
-- Equipamiento institucional.
-- Indicadores históricos de trayectoria.
+- tasa de abandono;
+- tasa de sobreedad;
+- brecha de promoción por sexo;
+- sector de gestión;
+- ámbito urbano/rural;
+- provincia y departamento;
+- conectividad;
+- equipamiento institucional;
+- indicadores históricos de trayectoria.
 
 Modelos candidatos:
 
-- Regresión logística.
-- Árbol de decisión.
-- Random Forest.
+- regresión logística;
+- árbol de decisión;
+- Random Forest;
 - Gradient Boosting.
 
-## Nota de portfolio
+## Notas de reproducibilidad
 
-Este repositorio nace de un proyecto académico y está siendo reorganizado como caso de portfolio profesional, priorizando narrativa ejecutiva, reproducibilidad, seguridad de credenciales y claridad técnica.
+- El dashboard principal requiere conexión a la base configurada en las variables de entorno para ejecutarse desde cero.
+- La demo HTML es estática/pre-renderizada: no ejecuta Python ni consulta la base en tiempo real.
+- Para exportar una demo completa, el notebook debe estar previamente ejecutado con outputs guardados.
+- Algunas visualizaciones geográficas descargan recursos externos durante la ejecución del notebook.
+- Los archivos crudos se preservan para mantener trazabilidad del proceso completo.
+- Este repositorio nace de un proyecto académico y fue reorganizado como caso de portfolio profesional, priorizando claridad técnica, seguridad de credenciales y narrativa ejecutiva.
