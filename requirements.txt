@@ -8,3 +8,4 @@ openpyxl
 scipy
 ipython
 jupyter
+python-dotenv

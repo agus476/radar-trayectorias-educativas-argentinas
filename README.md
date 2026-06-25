@@ -1,11 +1,13 @@
-# Analítica de Riesgo de Abandono Escolar en Argentina
+# Radar de Trayectorias Educativas Argentinas
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)](https://jupyter.org/)
 [![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Dashboard-3F4F75?logo=plotly&logoColor=white)](https://plotly.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL%20%2F%20Supabase-Data%20Warehouse-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-Proyecto de analítica aplicada orientado a identificar señales tempranas de riesgo de abandono escolar en Argentina. Integra datos históricos de matrícula, trayectoria educativa e infraestructura institucional para construir un dashboard ejecutivo con visualizaciones interactivas, segmentación de perfiles críticos y una base metodológica para una futura solución de alerta temprana.
+**Radar de Trayectorias Educativas Argentinas** es un dashboard analítico sobre trayectorias educativas, matrícula, secciones y abandono escolar en Argentina. El proyecto integra datos históricos de matrícula, trayectoria por sexo e infraestructura institucional para construir una lectura ejecutiva orientada a identificar señales tempranas de riesgo educativo.
+
+> Este repositorio corresponde al proyecto final de PP1, presentado bajo una identidad más profesional para portfolio sin cambiar el nombre real del repositorio ni sus rutas funcionales.
 
 ## Tabla de contenidos
 
@@ -17,19 +19,21 @@ Proyecto de analítica aplicada orientado a identificar señales tempranas de ri
 - [Pipeline de trabajo](#pipeline-de-trabajo)
 - [Preguntas analíticas](#preguntas-analíticas)
 - [Dashboard y visualizaciones](#dashboard-y-visualizaciones)
-- [Hallazgos principales](#hallazgos-principales)
+- [Demo online estática](#demo-online-estática)
 - [Stack técnico](#stack-técnico)
 - [Estructura del repositorio](#estructura-del-repositorio)
 - [Configuración local](#configuración-local)
+- [Ejecución con base de datos](#ejecución-con-base-de-datos)
 - [Variables de entorno](#variables-de-entorno)
-- [Próxima evolución: Machine Learning](#próxima-evolución-machine-learning)
+- [Cómo generar el HTML de demo](#cómo-generar-el-html-de-demo)
+- [Cómo publicar la demo](#cómo-publicar-la-demo)
 - [Notas de reproducibilidad](#notas-de-reproducibilidad)
 
 ## Descripción del proyecto
 
 El objetivo del proyecto es transformar datos educativos públicos en una herramienta de lectura ejecutiva que permita analizar tendencias, comparar segmentos institucionales y priorizar perfiles con mayor exposición al abandono escolar.
 
-La solución no se limita a mostrar métricas históricas: organiza el proceso completo desde archivos crudos hasta un dashboard final, documentando las etapas de formateo, limpieza, aseguramiento de calidad, ingesta SQL y visualización.
+La solución organiza el proceso completo desde archivos crudos hasta un dashboard final, documentando las etapas de formateo, limpieza, aseguramiento de calidad, ingesta SQL y visualización.
 
 ## Problema de negocio / política pública
 
@@ -66,6 +70,7 @@ La solución incluye:
 | Entregable | Descripción |
 | --- | --- |
 | [`abandono_escolar_argentina_dashboard.ipynb`](abandono_escolar_argentina_dashboard.ipynb) | Notebook principal con dashboard interactivo, narrativa ejecutiva y visualizaciones de riesgo. |
+| [`public/README.md`](public/README.md) | Instrucciones para generar y publicar una demo HTML estática del dashboard. |
 | [`docs/pipeline.md`](docs/pipeline.md) | Documentación del flujo de datos desde archivos crudos hasta el dashboard final. |
 | [`docs/case_study.md`](docs/case_study.md) | Caso de estudio con contexto, metodología, hallazgos y valor del proyecto. |
 | [`docs/talk_outline.md`](docs/talk_outline.md) | Guion de presentación para explicar el proyecto en formato portfolio o demo. |
@@ -125,6 +130,20 @@ El dashboard final organiza el análisis en cinco dimensiones:
 
 El notebook principal usa componentes HTML, Tailwind CSS y Plotly para presentar el análisis con una estética de dashboard ejecutivo.
 
+## Demo online estática
+
+La demo online recomendada es una versión HTML estática y pre-renderizada del notebook principal. Está pensada para revisión rápida por evaluadores, recruiters o docentes.
+
+Esta demo:
+
+- no requiere credenciales de PostgreSQL/Supabase;
+- no ejecuta Python;
+- no consulta la base de datos en tiempo real;
+- muestra los outputs, gráficos y resultados guardados al momento de exportar;
+- no reemplaza al notebook original ni al flujo con base de datos.
+
+La carpeta `public/` queda preparada para alojar el HTML publicable. Si `public/index.html` todavía no existe, debe generarse desde un notebook ya ejecutado con sus outputs guardados.
+
 ## Hallazgos principales
 
 - La sobreedad aparece como una señal académica relevante para perfilar riesgo de abandono.
@@ -155,6 +174,7 @@ El notebook principal usa componentes HTML, Tailwind CSS y Plotly para presentar
 ├── 05_database_ingestion/               # Creación de tablas e ingesta SQL
 ├── 06_visualization_prototype/          # Prototipo previo de visualización
 ├── docs/                                # Documentación narrativa y material de portfolio
+├── public/                              # Instrucciones / salida para demo HTML estática
 ├── abandono_escolar_argentina_dashboard.ipynb
 ├── requirements.txt                     # Dependencias del proyecto
 └── .env.example                         # Variables de entorno requeridas
@@ -190,15 +210,23 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-5. Abrir el notebook principal.
+5. Completar `.env` con credenciales propias de PostgreSQL/Supabase.
+
+6. Abrir el notebook principal.
 
 ```bash
 jupyter notebook abandono_escolar_argentina_dashboard.ipynb
 ```
 
+## Ejecución con base de datos
+
+El notebook original funciona conectado a PostgreSQL/Supabase mediante SQLAlchemy. Cuando existen credenciales válidas en el entorno o en `.env`, el dashboard crea la conexión y ejecuta sus consultas SQL contra las tablas analíticas.
+
+Este proyecto conserva intacta esa lógica: no se implementa un modo local alternativo con pandas ni se reemplazan las consultas SQL del dashboard.
+
 ## Variables de entorno
 
-El proyecto contempla conexión a una base PostgreSQL / Supabase. Crear un archivo `.env` local con la siguiente estructura:
+Crear un archivo `.env` local con la siguiente estructura:
 
 ```env
 DB_USER=
@@ -208,7 +236,50 @@ DB_PORT=6543
 DB_NAME=postgres
 ```
 
-> Por seguridad, las credenciales reales no deben versionarse. El repositorio solo incluye `.env.example` como referencia.
+El notebook principal carga explícitamente ese archivo con `python-dotenv` y luego mantiene el uso de `os.getenv(...)`.
+
+> Por seguridad, las credenciales reales no deben versionarse. El repositorio solo incluye `.env.example` como referencia y `.gitignore` excluye archivos `.env`.
+
+## Cómo generar el HTML de demo
+
+La demo HTML debe generarse después de ejecutar `abandono_escolar_argentina_dashboard.ipynb` con credenciales válidas y guardar sus outputs.
+
+Desde la raíz del repositorio:
+
+```bash
+jupyter nbconvert --to html abandono_escolar_argentina_dashboard.ipynb --output-dir public --output index.html
+```
+
+Para generar una versión más limpia, sin mostrar celdas de código:
+
+```bash
+jupyter nbconvert --to html abandono_escolar_argentina_dashboard.ipynb --output-dir public --output index.html --no-input
+```
+
+Antes de publicar el HTML, revisar que no contenga secretos:
+
+```bash
+rg -n "password|DB_PASSWORD|postgresql://|supabase|apikey|secret|token" public
+```
+
+Las menciones a nombres de variables pueden ser válidas, pero no debe aparecer ninguna credencial real, token o cadena de conexión completa.
+
+## Cómo publicar la demo
+
+### GitHub Pages
+
+1. Generar `public/index.html`.
+2. Subir el HTML al repositorio.
+3. Configurar GitHub Pages para servir el contenido estático correspondiente.
+
+### Vercel
+
+1. Generar `public/index.html`.
+2. Importar el repositorio en Vercel.
+3. Usar configuración estática, sin framework.
+4. Publicar la carpeta `public/`.
+
+No hace falta convertir el proyecto a Streamlit, Dash, Flask, Next.js ni React: la demo es HTML estático.
 
 ## Próxima evolución: Machine Learning
 
@@ -242,7 +313,9 @@ Modelos candidatos:
 
 ## Notas de reproducibilidad
 
-- El dashboard principal puede requerir conexión a la base configurada en las variables de entorno.
+- El dashboard principal requiere conexión a la base configurada en las variables de entorno para ejecutarse desde cero.
+- La demo HTML es estática/pre-renderizada: no ejecuta Python ni consulta la base en tiempo real.
+- Para exportar una demo completa, el notebook debe estar previamente ejecutado con outputs guardados.
 - Algunas visualizaciones geográficas descargan recursos externos durante la ejecución del notebook.
 - Los archivos crudos se preservan para mantener trazabilidad del proceso completo.
 - Este repositorio nace de un proyecto académico y fue reorganizado como caso de portfolio profesional, priorizando claridad técnica, seguridad de credenciales y narrativa ejecutiva.
